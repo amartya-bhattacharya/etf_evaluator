@@ -1,14 +1,15 @@
+from scrape import scrape_data
+
+
 def fetch_data(ticker):
-    # Make an API call to a stock market data provider.
-    # For now, we will simulate this with placeholder data.
-    data = {
-        "NAV": 82.24,
-        "market_price": 82.26,
-        "IIV": 81.86,
-        "PE_ratio": 13.8,
-        "PB_ratio": 1.8
-    }
-    return data
+    # Using the scrape_data function from scrape.py to fetch real data for the given ticker
+    base_url = "https://investor.vanguard.com/investment-products/etfs/profile/"
+    url = base_url + ticker.strip()
+    data, benchmark_data = scrape_data(url)
+    print(f"Data for {ticker.strip()} fetched successfully!")
+    print(f"ETF Data: {data}")
+    print(f"Benchmark Data: {benchmark_data}")
+    return data, benchmark_data
 
 
 def analyze_etf(data, benchmark_data):
@@ -33,19 +34,13 @@ def analyze_etf(data, benchmark_data):
 def main():
     tickers = input("Enter the ETF tickers separated by commas: ").split(",")
 
-    # Simulated benchmark data (e.g., VFH)
-    benchmark_data = {
-        "PE_ratio": 15.9,
-        "PB_ratio": 1.8
-    }
-
     for ticker in tickers:
-        data = fetch_data(ticker.strip())
+        data, benchmark_data = fetch_data(ticker.strip())
         premium_discount, valuation = analyze_etf(data, benchmark_data)
 
         print(f"\nETF {ticker.strip()} Analysis:")
         print(f"Trading at a {premium_discount} to its NAV.")
-        print(f"It is {valuation} based on its P/E and P/B ratios compared to the benchmark.")
+        print(f"It is {valuation} based on its P/E and P/B ratios compared to the benchmark.\n")
 
 
 if __name__ == "__main__":
