@@ -50,8 +50,7 @@ def analyze_etf(data, benchmark_data):
 
 
 def main():
-    # tickers = input("Enter the ETF tickers separated by commas: ").split(",")
-    tickers = 'VTI,VIOG,VGT,VFH,VHT,VNQ,VDE,VCR,VXUS'.split(",")
+    tickers = input("Enter the ETF tickers separated by commas: ").split(",")
 
     profiler = cProfile.Profile()
     s = StringIO()
